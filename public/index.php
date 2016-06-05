@@ -4,6 +4,8 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+session_start();
+
 // dirname — Возвращает имя родительского каталога из указанного пути
 define('ROOT', dirname(__FILE__));
 

@@ -46,4 +46,51 @@ class UserController
 
         return true;
     }
+
+    public function actionLogin()
+    {
+        $email      = '';
+        $password   = '';
+
+        if (isset($_POST['submit'])) {
+
+            $email      = trim($_POST['email']);
+            $password   = trim($_POST['password']);
+
+            $errors = false;
+
+            if (!User::checkEmail($email)) {
+                $errors[] = "Не правильний email";
+            }
+
+            if (!User::checkPassword($password)) {
+                $errors[] = "Пароль повинен бути не менше 6-х символів";
+            }
+
+            // Перевіряємо, чи існує такий корситувач
+            $userId = User::checkUserData($email, $password);
+
+            if ($userId == false) {
+                $errors[] = "Не правильний логін/пароль";
+            } else {
+                // Сесія
+                User::auth($userId);
+
+                // Переадресовуємо користувача в кабінет
+                header ('Location: /cabinet/');
+            }
+        }
+
+        require_once ROOT . '/../app/views/user/login.php';
+
+        return true;
+    }
+
+
+    public function actionLogout()
+    {
+        session_start();
+        unset($_SESSION['user']);
+        header ("Location: /");
+    }
 }

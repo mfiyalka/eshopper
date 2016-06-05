@@ -34,4 +34,4 @@
     </div>
     </section>
 
-    <? require_once(ROOT . '/../app/views/layouts/footer.php'); ?>
+<? require_once(ROOT . '/../app/views/layouts/footer.php'); ?>
