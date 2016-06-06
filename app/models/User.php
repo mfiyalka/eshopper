@@ -71,6 +71,20 @@ class User
     }
 
     /**
+     * Перевіряє текст повідомлення: повинно бути не менше 10 символів
+     * @param string $userText
+     * @return bool
+     */
+    public static function checkMessage($userText)
+    {
+        if (strlen($userText) >= 10) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Перевіряємо чи користувач з таким email є в базі даних
      * @param string $email
      * @return bool
