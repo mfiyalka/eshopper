@@ -67,4 +67,21 @@ class Product
         return $count['count'];
 
     }
+
+    public static function getProductsByIds($idsArray)
+    {
+        $products = array();
+
+        $db = DataBase::getConnection();
+
+        $idsString = implode(',', $idsArray);
+
+        $sql = "SELECT id, code, name, price FROM product WHERE status = 1 AND id IN ($idsString)";
+        $result = $db->query($sql);
+        $products = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $products;
+
+
+    }
 }

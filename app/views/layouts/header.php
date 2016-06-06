@@ -60,7 +60,9 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i> Кошик</a></li>
+                            <li><a href="/cart/"><i class="fa fa-shopping-cart"></i> Кошик
+                                    <span id="cart-count"> (<?=Cart::countItems()?>)</span>
+                                </a></li>
                             <? if (User::isGuest()) { ?>
                                 <li><a href="/user/login/"><i class="fa fa-lock"></i> Вхід</a></li>
 
