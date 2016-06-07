@@ -85,6 +85,19 @@ class User
     }
 
     /**
+     * Перевіряє телефон на кількість символів
+     * @param string $phone
+     * @return bool
+     */
+    public static function checkPhone($phone)
+    {
+        if (strlen($phone) >= 10) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Перевіряємо чи користувач з таким email є в базі даних
      * @param string $email
      * @return bool

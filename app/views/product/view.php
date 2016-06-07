@@ -42,7 +42,7 @@
                                             <span><?=$product['price']?> грн</span>
                                             <label>Кількість:</label>
                                             <input type="text" value="3" />
-                                            <button type="button" class="btn btn-fefault cart">
+                                            <button type="button" class="btn btn-fefault cart add-to-cart" data-id="<?=$product['id']?>">
                                                 <i class="fa fa-shopping-cart"></i>
                                                 В кошик
                                             </button>

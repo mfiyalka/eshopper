@@ -81,4 +81,14 @@ class Cart
         return $totalPrice;
 
     }
+
+    /**
+     * Очищаємо кошик
+     */
+    public static function clear()
+    {
+        if (isset($_SESSION['products'])) {
+            unset($_SESSION['products']);
+        }
+    }
 }
