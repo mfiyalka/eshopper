@@ -11,7 +11,14 @@ class MainController
         $latestProduct = array();
         $latestProduct = Product::getLatestProduct(6);
 
+        // Список товаров для слайдера
+        $sliderProducts = Product::getRecommendedProducts();
+
+
+
         require_once (ROOT . '/../app/views/site/index.php');
+//        echo '<pre>';
+//        var_dump($sliderProducts);
         return true;
     }
 

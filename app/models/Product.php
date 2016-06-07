@@ -54,7 +54,6 @@ class Product
         $product = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $product[0];
-
     }
 
     public static function getTotalProductsInCategory($categoryId)
@@ -65,7 +64,6 @@ class Product
         $count = $result->fetch(PDO::FETCH_ASSOC);
 
         return $count['count'];
-
     }
 
     public static function getProductsByIds($idsArray)
@@ -81,7 +79,31 @@ class Product
         $products = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $products;
+    }
 
+    /**
+     * Перелік рекомендованих товарів
+     * @return array
+     */
+    public static function getRecommendedProducts()
+    {
+        // Соединение с БД
+        $db = DataBase::getConnection();
 
+        // Получение и возврат результатов
+        $result = $db->query('SELECT id, name, price, is_new FROM product '
+            . 'WHERE status = "1" AND is_recommended = "1" '
+            . 'ORDER BY id DESC');
+        $i = 0;
+        $productsList = array();
+        while ($row = $result->fetch()) {
+            $productsList[$i]['id'] = $row['id'];
+            $productsList[$i]['name'] = $row['name'];
+            $productsList[$i]['price'] = $row['price'];
+            $productsList[$i]['is_new'] = $row['is_new'];
+            $i++;
+        }
+
+        return $productsList;
     }
 }

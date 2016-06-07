@@ -11,6 +11,9 @@
 </footer><!--/Footer-->
 
 
+<!--Carousel-->
+<!--<script src="/js/jquery.cycle2.carousel.min.js"></script>-->
+<!--<script src="/js/jquery.cycle2.min.js"></script>-->
 
 <script src="/js/jquery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
