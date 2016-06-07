@@ -23,7 +23,9 @@ class CartController
 
     public function actionDelete($id)
     {
-
+        // Видаляємо вказаний товар із кошику
+        Cart::deleteProduct($id);
+        // Поветраємо користувача в кошик
         header("Locatuon: /cart/");
     }
 
