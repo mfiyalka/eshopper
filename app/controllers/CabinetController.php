@@ -50,7 +50,6 @@ class CabinetController
         }
 
         require_once (ROOT . '/../app/views/cabinet/edit.php');
-
         return true;
     }
 }
