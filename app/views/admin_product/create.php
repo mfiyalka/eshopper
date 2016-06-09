@@ -27,7 +27,7 @@
                     </ul>
                 <? } ?>
 
-                <div class="col-lg-4">
+                <div class="col-md-6">
                     <div class="login-form">
                         <form action="#" method="post" enctype="multipart/form-data">
 
@@ -60,8 +60,12 @@
                             <input type="file" name="image" placeholder="" value="">
 
                             <p>Детальний опис товару</p>
-                            <textarea name="description" rows="8"></textarea>
-
+                            <textarea name="description" id="description" rows="8"></textarea>
+                            <script>
+                                // Replace the <textarea id="editor1"> with a CKEditor
+                                // instance, using default configuration.
+                                CKEDITOR.replace( 'description' );
+                            </script>
                             <br/><br/>
 
                             <p>Наявність на складі</p>
