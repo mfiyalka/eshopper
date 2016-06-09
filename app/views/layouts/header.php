@@ -91,16 +91,9 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="/">Головна</a></li>
-                            <li class="dropdown"><a href="#">Магазин<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="/catalog/">Каталог товарів</a></li>
-                                    <li><a href="/cart/">Кошик</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="/blog/">Блог</a></li>
-                            <li><a href="/about/">Про магазин</a></li>
-                            <li><a href="/contacts/">Контакти</a></li>
+                            <li><a href="/" <?= trim($_SERVER['REQUEST_URI'], '/') == '' ? 'class="active"' : ''?>>Головна</a></li>
+                            <li><a href="/catalog/" <?= trim($_SERVER['REQUEST_URI'], '/') == 'catalog' ? 'class="active"' : ''?>>Каталог</i></a>
+                            <li><a href="/contacts/" <?= trim($_SERVER['REQUEST_URI'], '/') == 'contacts' ? 'class="active"' : ''?>>Контакти</i></a>
                         </ul>
                     </div>
                 </div>

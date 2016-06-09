@@ -20,24 +20,24 @@ return array(
     'user/logout'                       => 'user/logout',               // actionLogout в UserController
     'cabinet/edit'                      => 'cabinet/edit',              // actionEdit в CabinetController
     'cabinet'                           => 'cabinet/index',             // actionIndex в CabinetController
-    // Управление товарами:
-    'admin/product/create'              => 'adminProduct/create',
-    'admin/product/update/([0-9]+)'     => 'adminProduct/update/$1',
-    'admin/product/delete/([0-9]+)'     => 'adminProduct/delete/$1',
-    'admin/product'                     => 'adminProduct/index',
-    // Управление категориями:
-    'admin/category/create'             => 'adminCategory/create',
-    'admin/category/update/([0-9]+)'    => 'adminCategory/update/$1',
-    'admin/category/delete/([0-9]+)'    => 'adminCategory/delete/$1',
-    'admin/category'                    => 'adminCategory/index',
-    // Управление заказами:
-    'admin/order/update/([0-9]+)'       => 'adminOrder/update/$1',
-    'admin/order/delete/([0-9]+)'       => 'adminOrder/delete/$1',
-    'admin/order/view/([0-9]+)'         => 'adminOrder/view/$1',
-    'admin/order'                       => 'adminOrder/index',
+    // Керування товарами:
+    'admin/product/create'              => 'adminProduct/create',       // actionCreate в AdminProductController
+    'admin/product/update/([0-9]+)'     => 'adminProduct/update/$1',    // actionUpdate в AdminProductController
+    'admin/product/delete/([0-9]+)'     => 'adminProduct/delete/$1',    // actionDetete в AdminProductController
+    'admin/product'                     => 'adminProduct/index',        // actionIndex в AdminProductController
+    // Керування категоріями:
+    'admin/category/create'             => 'adminCategory/create',      // actionCreate в AdminCategoryController
+    'admin/category/update/([0-9]+)'    => 'adminCategory/update/$1',   // actionUpdate в AdminCategoryController
+    'admin/category/delete/([0-9]+)'    => 'adminCategory/delete/$1',   // actionDetete в AdminCategoryController
+    'admin/category'                    => 'adminCategory/index',       // actionIndex в AdminCategoryController
+    // КЕрування замовленнями:
+    'admin/order/update/([0-9]+)'       => 'adminOrder/update/$1',      // actionUpdate в AdminOrderController
+    'admin/order/delete/([0-9]+)'       => 'adminOrder/delete/$1',      // actionDetete в AdminOrderController
+    'admin/order/view/([0-9]+)'         => 'adminOrder/view/$1',        // actionView в AdminOrderController
+    'admin/order'                       => 'adminOrder/index',          // actionIndex в AdminOrderController
     // Адмінпанель:
     'admin'                             => 'admin/index',               // actionIndex в AdminController
-    // Про магазин:
+    // Зворотній зв'язок:
     'contacts'                          => 'main/contact',              // actionContact в MainController
     // Головна сторінка
     'index.php'                         => 'site/index',                // actionIndex в SiteController

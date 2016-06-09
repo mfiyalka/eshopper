@@ -34,7 +34,7 @@
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="images/home/product1.jpg" alt=""/>
+                                            <img src="<?=Product::getImage($product['id'])?>" alt=""/>
                                             <h2><?= $product['price'] ?> грн</h2>
                                             <p><a href="product/<?= $product['id'] ?>"><?= $product['name'] ?></a></p>
                                             <a href="#" class="btn btn-default add-to-cart"
@@ -67,7 +67,7 @@
                                             <div class="product-image-wrapper">
                                                 <div class="single-products">
                                                     <div class="productinfo text-center">
-                                                        <img src="images/home/recommend1.jpg" alt=""/>
+                                                        <img src="<?=Product::getImage($product['id'])?>" alt=""/>
                                                         <h2><?= $product['price'] ?> грн</h2>
                                                         <p><a href="product/<?= $product['id'] ?>"><?= $product['name'] ?></a></p>
                                                         <a href="#" class="btn btn-default add-to-cart"
@@ -83,7 +83,7 @@
                                         }
                                         $i++;
                                     } ?>
-                                </div>
+
                             </div>
                             <a class="left recommended-item-control" href="#recommended-item-carousel"
                                data-slide="prev">
@@ -93,6 +93,7 @@
                                data-slide="next">
                                 <i class="fa fa-angle-right"></i>
                             </a>
+                        </div>
                         </div>
                     </div><!--/recommended_items-->
 

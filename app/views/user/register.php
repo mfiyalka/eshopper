@@ -7,25 +7,26 @@
     <div class="col-sm-4 col-sm-offset-4 padding-right">
 
     <? if ($result) { ?>
-        <p>Ви зареєстровані!</p>
+        <p class="text-center">Ви зареєстровані!</p>
     <? } else { ?>
         <? if (isset($errors) && is_array($errors)) { ?>
             <ul>
                 <? foreach ($errors as $error) { ?>
-                    <li> - <?=$error?></li>
+                    <li class="text-center"> <?=$error?></li>
                 <? } ?>
             </ul>
         <? }?>
 
-    <div class="signup-form"><!--sign up form-->
-        <h2>Реєстрація на сайті</h2>
-        <form action="#" method="post">
-            <input type="text" name="name" placeholder="Ім'я" value="<?= $name ?>"/>
-            <input type="email" name="email" placeholder="E-mail" value="<?= $email ?>"/>
-            <input type="password" name="password" placeholder="Пароль" value="<?= $password ?>"/>
-            <input type="submit" name="submit" class="btn btn-default" value="Реєстрація"/>
-        </form>
-    </div><!--/sign up form-->
+        <div class="signup-form"><!--sign up form-->
+            <h2>Реєстрація на сайті</h2>
+            <form action="#" method="post">
+                <input type="text" name="name" placeholder="Name" value="<?= $name ?>"/>
+                <input type="email" name="email" placeholder="E-mail" value="<?= $email ?>"/>
+                <input type="password" name="password" placeholder="Password" value="<?= $password ?>"/>
+                <button type="submit" name="submit" class="btn btn-default">Реєстрація</button>
+            </form>
+        </div><!--/sign up form-->
+
     <? } ?>
     <br/>
     <br/>

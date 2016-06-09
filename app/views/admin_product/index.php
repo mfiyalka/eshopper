@@ -23,7 +23,7 @@
                 <tr>
                     <th>ID товару</th>
                     <th>Артикул</th>
-                    <th>Нозва товару</th>
+                    <th>Назва товару</th>
                     <th>Ціна</th>
                     <th></th>
                     <th></th>
@@ -45,4 +45,3 @@
 </section>
 
 <?php include ROOT . '/../app/views/layouts/footer_admin.php'; ?>
-

@@ -14,4 +14,3 @@ require_once (ROOT . '/../app/core/Autoload.php');
 
 $router = new Router();
 $router->run();
-

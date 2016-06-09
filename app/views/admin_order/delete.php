@@ -1,32 +1,31 @@
 <?php include ROOT . '/../app/views/layouts/header_admin.php'; ?>
 
-<section>
-    <div class="container">
-        <div class="row">
+    <section>
+        <div class="container">
+            <div class="row">
 
-            <br/>
+                <br>
 
-            <div class="breadcrumbs">
-                <ol class="breadcrumb">
-                    <li><a href="/admin">Админпанель</a></li>
-                    <li><a href="/admin/order">Управление заказами</a></li>
-                    <li class="active">Удалить заказ</li>
-                </ol>
+                <div class="breadcrumbs">
+                    <ol class="breadcrumb">
+                        <li><a href="/admin">Адмінпанель</a></li>
+                        <li><a href="/admin/order">Керування замовленнями</a></li>
+                        <li class="active">Видалити замовлення</li>
+                    </ol>
+                </div>
+
+                <h4>Видалити замовлення #<?= $id ?></h4>
+
+                <p>Ви дійсно хочете видалити це замовлення?</p>
+
+                <form method="post">
+                    <input type="submit" name="submit" value="Видалити"/>
+                </form>
+
             </div>
-
-
-            <h4>Удалить заказ #<?php echo $id; ?></h4>
-
-
-            <p>Вы действительно хотите удалить этот заказ?</p>
-
-            <form method="post">
-                <input type="submit" name="submit" value="Удалить" />
-            </form>
-
         </div>
-    </div>
-</section>
+    </section>
+    <br>
+    <br>
 
 <?php include ROOT . '/../app/views/layouts/footer_admin.php'; ?>
-

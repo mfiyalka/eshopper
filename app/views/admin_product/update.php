@@ -8,14 +8,14 @@
 
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
-                    <li><a href="/admin">Админпанель</a></li>
-                    <li><a href="/admin/product">Управление товарами</a></li>
-                    <li class="active">Редактировать товар</li>
+                    <li><a href="/admin">Адмінпанель</a></li>
+                    <li><a href="/admin/product">Керування товарами</a></li>
+                    <li class="active">Редагувати товар</li>
                 </ol>
             </div>
 
 
-            <h4>Редактировать товар #<?php echo $id; ?></h4>
+            <h4>Редагувати товар #<?=$id?></h4>
 
             <br/>
 
@@ -23,74 +23,74 @@
                 <div class="login-form">
                     <form action="#" method="post" enctype="multipart/form-data">
 
-                        <p>Название товара</p>
-                        <input type="text" name="name" placeholder="" value="<?php echo $product['name']; ?>">
+                        <p>Назва товару</p>
+                        <input type="text" name="name" placeholder="" value="<?=$product['name']?>">
 
                         <p>Артикул</p>
-                        <input type="text" name="code" placeholder="" value="<?php echo $product['code']; ?>">
+                        <input type="text" name="code" placeholder="" value="<?=$product['code']?>">
 
-                        <p>Стоимость, $</p>
-                        <input type="text" name="price" placeholder="" value="<?php echo $product['price']; ?>">
+                        <p>Вартість, 8</p>
+                        <input type="text" name="price" placeholder="" value="<?=$product['price']?>">
 
-                        <p>Категория</p>
+                        <p>Категорія</p>
                         <select name="category_id">
-                            <?php if (is_array($categoriesList)): ?>
-                                <?php foreach ($categoriesList as $category): ?>
-                                    <option value="<?php echo $category['id']; ?>" 
-                                        <?php if ($product['category_id'] == $category['id']) echo ' selected="selected"'; ?>>
-                                        <?php echo $category['name']; ?>
+                            <? if (is_array($categoriesList)) { ?>
+                                <? foreach ($categoriesList as $category) { ?>
+                                    <option value="<?=$category['id']?>"
+                                        <? if ($product['category_id'] == $category['id']) echo ' selected="selected"'; ?>>
+                                        <?=$category['name']?>
                                     </option>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
+                                <? } ?>
+                            <? } ?>
                         </select>
                         
                         <br/><br/>
 
-                        <p>Производитель</p>
-                        <input type="text" name="brand" placeholder="" value="<?php echo $product['brand']; ?>">
+                        <p>Виробник</p>
+                        <input type="text" name="brand" placeholder="" value="<?=$product['brand']?>">
 
-                        <p>Изображение товара</p>
-                        <img src="<?php echo Product::getImage($product['id']); ?>" width="200" alt="" />
-                        <input type="file" name="image" placeholder="" value="<?php echo $product['image']; ?>">
+                        <p>Зображення товару</p>
+                        <img src="<?=Product::getImage($product['id'])?>" width="200" alt="" />
+                        <input type="file" name="image" placeholder="" value="<?=$product['image']?>">
 
-                        <p>Детальное описание</p>
-                        <textarea name="description"><?php echo $product['description']; ?></textarea>
+                        <p>Детальний опис</p>
+                        <textarea name="description" rows="8"><?=$product['description']?></textarea>
                         
                         <br/><br/>
 
-                        <p>Наличие на складе</p>
+                        <p>Наявність на складі</p>
                         <select name="availability">
-                            <option value="1" <?php if ($product['availability'] == 1) echo ' selected="selected"'; ?>>Да</option>
-                            <option value="0" <?php if ($product['availability'] == 0) echo ' selected="selected"'; ?>>Нет</option>
+                            <option value="1" <? if ($product['availability'] == 1) echo ' selected="selected"'; ?>>Так</option>
+                            <option value="0" <? if ($product['availability'] == 0) echo ' selected="selected"'; ?>>Ні</option>
                         </select>
                         
                         <br/><br/>
                         
                         <p>Новинка</p>
                         <select name="is_new">
-                            <option value="1" <?php if ($product['is_new'] == 1) echo ' selected="selected"'; ?>>Да</option>
-                            <option value="0" <?php if ($product['is_new'] == 0) echo ' selected="selected"'; ?>>Нет</option>
+                            <option value="1" <? if ($product['is_new'] == 1) echo ' selected="selected"'; ?>>Так</option>
+                            <option value="0" <? if ($product['is_new'] == 0) echo ' selected="selected"'; ?>>Ні</option>
                         </select>
                         
                         <br/><br/>
 
-                        <p>Рекомендуемые</p>
+                        <p>Рекомендований</p>
                         <select name="is_recommended">
-                            <option value="1" <?php if ($product['is_recommended'] == 1) echo ' selected="selected"'; ?>>Да</option>
-                            <option value="0" <?php if ($product['is_recommended'] == 0) echo ' selected="selected"'; ?>>Нет</option>
+                            <option value="1" <? if ($product['is_recommended'] == 1) echo ' selected="selected"'; ?>>Так</option>
+                            <option value="0" <? if ($product['is_recommended'] == 0) echo ' selected="selected"'; ?>>Ні</option>
                         </select>
                         
                         <br/><br/>
 
                         <p>Статус</p>
                         <select name="status">
-                            <option value="1" <?php if ($product['status'] == 1) echo ' selected="selected"'; ?>>Отображается</option>
-                            <option value="0" <?php if ($product['status'] == 0) echo ' selected="selected"'; ?>>Скрыт</option>
+                            <option value="1" <? if ($product['status'] == 1) echo ' selected="selected"'; ?>>Відображається</option>
+                            <option value="0" <? if ($product['status'] == 0) echo ' selected="selected"'; ?>>Прихований</option>
                         </select>
                         
                         <br/><br/>
                         
-                        <input type="submit" name="submit" class="btn btn-default" value="Сохранить">
+                        <input type="submit" name="submit" class="btn btn-default" value="Зберегти">
                         
                         <br/><br/>
                         
@@ -103,4 +103,3 @@
 </section>
 
 <?php include ROOT . '/../app/views/layouts/footer_admin.php'; ?>
-

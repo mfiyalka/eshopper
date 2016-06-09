@@ -17,22 +17,24 @@ class MainController
 
 
         require_once (ROOT . '/../app/views/site/index.php');
-//        echo '<pre>';
-//        var_dump($sliderProducts);
         return true;
     }
 
     public function actionContact()
     {
-        $userEmail = '';
-        $userText = '';
+        $userName       = '';
+        $userEmail      = '';
+        $userSubject    = '';
+        $userMessage    = '';
         $result = false;
 
 
         if (isset($_POST['submit'])) {
 
-            $userEmail = $_POST['userEmail'];
-            $userText = $_POST['userText'];
+            $userName       = $_POST['name'];
+            $userEmail      = $_POST['email'];
+            $userSubject    = $_POST['subject'];
+            $userMessage    = $_POST['message'];
 
             $errors = false;
 
@@ -42,15 +44,15 @@ class MainController
             }
 
             // Перевірка, чи заповнене повідомлення
-            if (!User::checkMessage($userText)) {
+            if (!User::checkMessage($userMessage)) {
                 $errors[] = "Введіть текст повідомлення (не менше 10 символів)";
             }
 
             if ($errors == false) {
 
                 $adminEmail = 'mfiyalka@gmail.com';
-                $message = "Текст: {$userText }. Від {$userEmail}";
-                $subject = "Зворотній зв'язок";
+                $message = "Текст: {$userMessage }. Від {$userEmail}, {$userName}";
+                $subject = $userSubject;
 //                $result = mail($adminEmail, $subject, $message);
                 $result = true;
             }

@@ -1,4 +1,6 @@
-<? require_once (ROOT . '/../app/views/layouts/header.php'); ?>
+<? require_once (ROOT . '/../app/views/layouts/header.php');
+
+?>
 
     <section>
         <div class="container">
@@ -34,7 +36,7 @@
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="/images/home/product1.jpg" alt="" />
+                                            <img src="<?=Product::getImage($product['id'])?>" alt="" />
                                             <h2><?=$product['price']?> грн</h2>
                                             <p><a href="/product/<?=$product['id']?>"><?=$product['name']?></a></p>
                                             <a href="#" class="btn btn-default add-to-cart" data-id="<?=$product['id']?>"><i class="fa fa-shopping-cart"></i>В кошик</a>
