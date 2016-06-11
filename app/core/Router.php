@@ -54,16 +54,17 @@ public function run()
 
                 // Підключаємо файл класа контролера
                 $controllerFile = ROOT . '/../app/controllers/' . $controllerName . '.php';
-                if (is_file($controllerFile)) {
+
+                if (file_exists($controllerFile)) {
                     include_once ($controllerFile);
                 }
 
-                // Створюємо об'єкт, викликаємо метод (action)
-                $controllerOblect = new $controllerName;
-//                $result = $controllerOblect->$actionName();
-                $result = call_user_func_array(array($controllerOblect, $actionName), $parametrs);
-                if ($result != null) {
-                    break;
+                if (method_exists($controllerName, $actionName)) {
+                    $controllerOblect = new $controllerName;
+                    $result = call_user_func_array(array($controllerOblect, $actionName), $parametrs);
+                    if ($result != null) {
+                        break;
+                    }
                 }
             }
         }

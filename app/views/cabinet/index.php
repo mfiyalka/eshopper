@@ -9,11 +9,13 @@
             <h4>Привіт, <?=$user['name']?>!</h4>
             <ul>
                 <li><a href="/cabinet/edit">Редагувати персональні дані</a></li>
+                <li><a href="/cabinet/editpassword">Змінити пароль</a></li>
                 <li><a href="/cabinet/history">Перелік покупок</a></li>
             </ul>
 
         </div>
     </div>
 </section>
+<br>
 
 <? require_once(ROOT . '/../app/views/layouts/footer.php'); ?>

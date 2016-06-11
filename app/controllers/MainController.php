@@ -14,8 +14,6 @@ class MainController
         // Список товаров для слайдера
         $sliderProducts = Product::getRecommendedProducts();
 
-
-
         require_once (ROOT . '/../app/views/site/index.php');
         return true;
     }

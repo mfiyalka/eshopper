@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
 
-            <br/>
+            <br>
 
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
@@ -17,7 +17,7 @@
             
             <h4>Перелік товарів</h4>
 
-            <br/>
+            <br>
 
             <table class="table-bordered table-striped table">
                 <tr>

@@ -15,6 +15,7 @@ class User
      */
     public static function register($name, $email, $password)
     {
+        $password = password_hash($password, PASSWORD_DEFAULT);
         $db = DataBase::getConnection();
 
         $sql = 'INSERT INTO user (name, email, password)
@@ -89,9 +90,10 @@ class User
      * @param string $phone
      * @return bool
      */
-    public static function checkPhone($phone)
+    public static function checkPhoneNumber($phone)
     {
-        if (strlen($phone) >= 10) {
+        $pattern = "/^[+][38][0-9]{3}[0-9]{8}$/";
+        if (preg_match($pattern, $phone)) {
             return true;
         }
         return false;
@@ -127,16 +129,17 @@ class User
     {
         $db = DataBase::getConnection();
 
-        $sql = 'SELECT * FROM user WHERE email = :email AND password = :password';
+        $sql = 'SELECT * FROM user WHERE email = :email';
 
         $result = $db->prepare($sql);
         $result->bindParam(':email', $email, PDO::PARAM_STR);
-        $result->bindParam(':password', $password, PDO::PARAM_STR);
         $result->execute();
 
         $user = $result->fetch();
         if ($user) {
-            return $user['id'];
+
+            if (password_verify($password, $user['password']))
+                return $user['id'];
         }
 
         return false;
@@ -213,15 +216,35 @@ class User
      * @param string $password
      * @return bool
      */
-    public static function edit($userId, $name, $password)
+    public static function editUser($userId, $name, $phone)
     {
         $db = DataBase::getConnection();
 
-        $sql = 'UPDATE user SET name = :name, password = :password WHERE id = :userId';
+        $sql = 'UPDATE user SET name = :name, phone = :phone WHERE id = :userId';
 
         $result = $db->prepare($sql);
         $result->bindParam(':userId', $userId, PDO::PARAM_STR);
         $result->bindParam(':name', $name, PDO::PARAM_STR);
+        $result->bindParam(':phone', $phone, PDO::PARAM_STR);
+
+        return $result->execute();
+    }
+
+    /**
+     * @param $userId
+     * @param $password_old
+     * @param $password_new
+     * @return bool
+     */
+    public static function editUserPassword($userId, $password_new)
+    {
+        $password = password_hash($password_new, PASSWORD_DEFAULT);
+        $db = DataBase::getConnection();
+
+        $sql = 'UPDATE user SET password = :password WHERE id = :userId';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':userId', $userId, PDO::PARAM_STR);
         $result->bindParam(':password', $password, PDO::PARAM_STR);
 
         return $result->execute();

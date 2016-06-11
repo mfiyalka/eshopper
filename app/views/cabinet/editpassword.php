@@ -7,7 +7,7 @@
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
                     <li><a href="/cabinet">Особистий кабінет</a></li>
-                    <li class="active">Редагування персональних даних</li>
+                    <li class="active">Змінити пароль</li>
                 </ol>
             </div>
 
@@ -27,13 +27,13 @@
                     <? } ?>
 
                     <div class="signup-form"><!--sign up form-->
-                        <h2>Редагування персональних даних</h2>
+                        <h2>Змінити пароль</h2>
                         <form action="#" method="post">
-                            <p>Ім'я:</p>
-                            <input type="text" name="name" placeholder="Ім'я" value="<?= $name ?>"/>
-                            <p>Телефон:</p>
-                            <input type="phone" name="phone" placeholder="Телефон +380" value="<?= $phone ?>"/>
-                            <br>
+                            <p>Новий пароль:</p>
+                            <input type="password" name="password" placeholder="Password" value=""/>
+                            <p>Повторіть пароль:</p>
+                            <input type="password" name="password_repeat" placeholder="Password" value=""/>
+                            <br/>
                             <button type="submit" name="submit" class="btn btn-default">Зберегти</button>
                         </form>
                     </div><!--/sign up form-->

@@ -67,7 +67,7 @@ class UserController
                 $errors[] = "Пароль повинен бути не менше 6-х символів";
             }
 
-            // Перевіряємо, чи існує такий корситувач
+            // Перевіряємо, чи існує такий користувач
             $userId = User::checkUserData($email, $password);
 
             if ($userId == false) {
@@ -82,7 +82,6 @@ class UserController
         }
 
         require_once ROOT . '/../app/views/user/login.php';
-
         return true;
     }
 
