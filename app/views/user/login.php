@@ -19,10 +19,6 @@
                     <form action="#" method="post">
                         <input type="email" name="email" placeholder="E-mail" value="<?=$email?>"/>
                         <input type="password" name="password" placeholder="Password" value="<?=$password?>"/>
-							<span>
-								<input type="checkbox" class="checkbox">
-								Keep me signed in
-							</span>
                             <span>
 								<a href="/user/register">   Зареєструватися</a>
 							</span>

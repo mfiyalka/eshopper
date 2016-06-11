@@ -4,7 +4,7 @@
         <div class="container">
             <div class="row">
                 <p class="pull-left">Copyright © <?=date('Y')?></p>
-                <p class="pull-right">Фіялка Михайло</p>
+                <p class="pull-right"><a href="/admin">Вхід для адміністратора</a></p>
             </div>
         </div>
     </div>
