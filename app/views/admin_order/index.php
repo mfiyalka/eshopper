@@ -49,5 +49,6 @@
         </div>
     </div>
 </section>
+    <br>
 
 <?php include ROOT . '/../app/views/layouts/footer_admin.php'; ?>

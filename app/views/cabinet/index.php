@@ -10,7 +10,7 @@
             <ul>
                 <li><a href="/cabinet/edit">Редагувати персональні дані</a></li>
                 <li><a href="/cabinet/editpassword">Змінити пароль</a></li>
-                <li><a href="/cabinet/history">Перелік покупок</a></li>
+                <li><a href="/cabinet/history">Історія замовлень</a></li>
             </ul>
 
         </div>

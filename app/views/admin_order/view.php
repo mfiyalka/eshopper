@@ -33,6 +33,10 @@
                     <td><?=$order['user_phone']?></td>
                 </tr>
                 <tr>
+                <tr>
+                    <td>Місто доставки</td>
+                    <td><?=$order['user_city']?></td>
+                </tr>
                     <td>Коментар клієнта</td>
                     <td><?=$order['user_comment']?></td>
                 </tr>
@@ -71,6 +75,10 @@
                         <td><?=$productsQuantity[$product['id']]?></td>
                     </tr>
                 <? } ?>
+                <tr>
+                    <td colspan="4"><b>Загальна вартість, грн:</b></td>
+                    <td><b><?=$totalPrice?></b></td>
+                </tr>
             </table>
 
             <a href="/admin/order/" class="btn btn-default back"><i class="fa fa-arrow-left"></i> Назад</a>

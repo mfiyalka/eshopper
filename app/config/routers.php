@@ -22,6 +22,8 @@ return array(
     'user/logout'                       => 'user/logout',               // actionLogout в UserController
     'cabinet/edit'                      => 'cabinet/edit',              // actionEdit в CabinetController
     'cabinet/editpassword'              => 'cabinet/editpassword',      // actionEditPassword в CabinetController
+    'cabinet/history'                   => 'cabinet/history',           // actionHistory в CabinetController
+    'cabinet/order/view/([0-9]+)'       => 'cabinet/view/$1',           // actionView в CabinetController
     'cabinet'                           => 'cabinet/index',             // actionIndex в CabinetController
     // Керування товарами:
     'admin/product/create'              => 'adminProduct/create',       // actionCreate в AdminProductController

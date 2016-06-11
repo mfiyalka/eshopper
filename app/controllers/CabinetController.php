@@ -88,4 +88,38 @@ class CabinetController
         require_once (ROOT . '/../app/views/cabinet/editpassword.php');
         return true;
     }
+
+    public function actionHistory()
+    {
+        // Получаем список заказов
+        $ordersList = Order::getOrdersList();
+
+        require_once (ROOT . '/../app/views/cabinet/history.php');
+        return true;
+    }
+
+    public function actionView($id)
+    {
+        // Получаем данные о конкретном заказе
+        $order = Order::getOrderById($id);
+
+        // Получаем массив с идентификаторами и количеством товаров
+        $productsQuantity = json_decode($order['products'], true);
+
+        // Получаем массив с индентификаторами товаров
+        $productsIds = array_keys($productsQuantity);
+
+        // Получаем список товаров в заказе
+        $products = Product::getProductsByIds($productsIds);
+
+        // Рахуємо загальну вартість замовлення
+        $totalPrice = 0;
+        foreach ($products as $item) {
+            $totalPrice = $totalPrice + $item['price'];
+        }
+
+        // Подключаем вид
+        require_once(ROOT . '/../app/views/cabinet/view.php');
+        return true;
+    }
 }

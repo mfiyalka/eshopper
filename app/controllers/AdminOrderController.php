@@ -76,6 +76,12 @@ class AdminOrderController extends AdminBase
         // Получаем список товаров в заказе
         $products = Product::getProductsByIds($productsIds);
 
+        // Рахуємо загальну вартість замовлення
+        $totalPrice = 0;
+        foreach ($products as $item) {
+            $totalPrice = $totalPrice + $item['price'];
+        }
+
         // Подключаем вид
         require_once(ROOT . '/../app/views/admin_order/view.php');
         return true;

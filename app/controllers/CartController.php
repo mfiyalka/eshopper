@@ -86,6 +86,7 @@ class CartController
             // Отримуємо дані із форми
             $userName = $_POST['userName'];
             $userPhone = $_POST['userPhone'];
+            $userCity = $_POST['userCity'];
             $userComment = $_POST['userComment'];
 
             // Валідація полів
@@ -109,7 +110,7 @@ class CartController
                 }
 
                 // Зберігаємо замовлення в базі даних
-                $result = Order::save($userName, $userPhone, $userComment, $userId, $productsInCard);
+                $result = Order::save($userName, $userPhone, $userComment, $userCity, $userId, $productsInCard);
 
                 if ($result) {
                     // Відправляємо адміністратору повідомлення про замовлення
@@ -176,5 +177,6 @@ class CartController
         require_once (ROOT . '/../app/views/cart/checkout.php');
         return true;
     }
+
 
 }
