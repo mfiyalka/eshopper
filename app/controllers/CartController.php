@@ -75,8 +75,6 @@ class CartController
 
     public function actionCheckout()
     {
-        $categories = array();
-        $categories = Category::getCategoryList();
 
         // Статус успішного оформлення замовлення
         $result = false;
@@ -94,7 +92,7 @@ class CartController
             $errors = false;
             if(!User::checkName($userName))
                 $errors[] = "Не правильне ім'я";
-            if(!User::checkPhone($userPhone))
+            if(!User::checkPhoneNumber($userPhone))
                 $errors[] = "Не правильний телефон";
 
             // Форма заповнена коректно?
@@ -155,6 +153,7 @@ class CartController
 
                 $userName = false;
                 $userPhone = false;
+                $userCity = false;
                 $userComment = false;
 
                 // Користувач авторизований?
@@ -169,6 +168,7 @@ class CartController
 
                     // Підставляємо значення у форму
                     $userName = $user['name'];
+                    $userPhone = $user['phone'];
                 }
             }
         }

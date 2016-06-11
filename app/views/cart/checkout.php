@@ -1,76 +1,67 @@
-<? require_once (ROOT . '/../app/views/layouts/header.php'); ?>
+<? require_once(ROOT . '/../app/views/layouts/header.php'); ?>
 
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-sm-3">
-                    <div class="left-sidebar">
-                        <h2>Каталог</h2>
-                        <div class="panel-group category-products">
-                            <? foreach ($categories as $categoryItem) { ?>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a href="/category/<?=$categoryItem['id']?>">
-                                                <?=$categoryItem['name']?>
-                                            </a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            <? } ?>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-sm-9 padding-right">
+                <div class="col-sm-12">
                     <div class="features_items">
                         <h2 class="title text-center">Кошик</h2>
+                        <div class="col-md-6 col-md-offset-3">
 
 
-                        <? if ($result) { ?>
-                            <p>Замовлення оформлене. Ми Вам передзвонимо.</p>
-                        <? } else { ?>
+                            <? if ($result) { ?>
+                                <p class="text-center">Замовлення оформлене. Ми Вам передзвонимо.</p>
+                            <? } else { ?>
 
-                            <p>Вибрано товарів: <?=$totalQuantity?>, на суму: <?=$totalPrice?> грн</p><br/>
+                                <p class="text-center">Вибрано товарів: <?= $totalQuantity ?>, на
+                                    суму: <?= $totalPrice ?> грн</p><br/>
 
-                            <? if (!$result) { ?>
+                                <? if (!$result) {
 
-                                <div class="col-sm-4">
-                                    <? if (isset($errors) && is_array($errors)) { ?>
+                                    if (isset($errors) && is_array($errors)) { ?>
                                         <ul>
                                             <? foreach ($errors as $error) { ?>
-                                                <li> - <?=$error?></li>
+                                                <li class="text-center"> <?= $error ?></li>
                                             <? } ?>
                                         </ul>
                                     <? } ?>
 
-                                    <p>Для оформлення замовлення заповніть форму. Наш менеджер зв'яжеться з Вами.</p>
+                                    <p class="text-center">Для оформлення замовлення заповніть форму. Наш менеджер зв'яжеться з Вами.</p>
 
                                     <div class="login-form">
                                         <form action="#" method="post">
 
                                             <p>Ваше ім'я</p>
-                                            <input type="text" name="userName" placeholder="Ваше ім'я" value="<?=$userName?>"/>
+                                            <input type="text" name="userName" placeholder="Ваше ім'я"
+                                                   value="<?=$userName?>"/>
 
                                             <p>Номер телефону</p>
-                                            <input type="text" name="userPhone" placeholder="Номер телефону" value="<?=$userPhone?>"/>
+                                            <input type="text" name="userPhone" placeholder="Номер телефону"
+                                                   value="<?=$userPhone?>"/>
+
+                                            <p>Місто доставки</p>
+                                            <input type="text" name="userCity" placeholder="Місто доставки"
+                                                   value="<?=$userCity?>"/>
 
                                             <p>Коментар до замовлення</p>
-                                            <textarea name="userComment" placeholder="Коментар" cols="30" rows="5"><?=$userComment?></textarea>
+                                            <textarea name="userComment" placeholder="Коментар" cols="30"
+                                                      rows="5"><?=$userComment?></textarea>
                                             <br>
-                                            <br>
-                                            <input type="submit" name="submit" class="btn btn-default" value="Оформити" />
+                                            <button type="submit" name="submit" class="btn btn-default center-block">Оформити</button>
                                         </form>
                                     </div>
-                                </div>
 
+                                <? } ?>
                             <? } ?>
-                        <? } ?>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <br>
+    <br>
 
-<? require_once (ROOT . '/../app/views/layouts/footer.php'); ?>
+<? require_once(ROOT . '/../app/views/layouts/footer.php'); ?>
