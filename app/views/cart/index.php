@@ -3,28 +3,8 @@
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-sm-3">
-                    <div class="left-sidebar">
-                        <h2>Каталог</h2>
-                        <div class="panel-group category-products">
 
-                            <? foreach ($categories as $categoryItem) {?>
-
-                                <div class="panel panel-default">
-                                    <div class="panel-heading">
-                                        <h4 class="panel-title"><a href="/category/<?=$categoryItem['id']?>"><?=$categoryItem['name']?></a></h4>
-                                    </div>
-                                </div>
-
-                            <?}?>
-
-                        </div>
-
-                    </div>
-                </div>
-
-
-                <div class="col-sm-9 padding-right">
+                <div class="col-sm-12">
                     <div class="features_items">
                         <h2 class="title text-center">Кошик</h2>
 
@@ -36,6 +16,7 @@
                                     <th>Назва</th>
                                     <th>Вартість, грн</th>
                                     <th>Кількість, шт</th>
+                                    <th>Всього, грн</th>
                                     <th>Видалити</th>
                                 </tr>
                                 <? foreach ($products as $product) { ?>
@@ -47,7 +28,14 @@
                                             </a>
                                         </td>
                                         <td><?=$product['price']?></td>
-                                        <td><?=$productsInCart[$product['id']]?></td>
+                                        <td>
+                                            <div class="cart_quantity_button">
+                                                <a class="cart_quantity_up" href="/cart/inc/<?=$product['id']?>"> + </a>
+                                                <input class="cart_quantity_input" type="text" name="quantity" value="<?=$productsInCart[$product['id']]?>" autocomplete="off" size="2">
+                                                <a class="cart_quantity_down" href="/cart/dec/<?=$product['id']?>"> - </a>
+                                            </div>
+                                        </td>
+                                        <td><?=$product['price'] * $productsInCart[$product['id']]?></td>
                                         <td>
                                             <a href="/cart/delete/<?=$product['id']?>">
                                                 <i class="fa fa-times"></i>
@@ -56,13 +44,14 @@
                                     </tr>
                                 <? } ?>
                                 <tr>
-                                    <td colspan="4">Загальна вартість, грн:</td>
+                                    <td colspan="5">Загальна вартість, грн:</td>
                                     <td><?=$totalPrice?></td>
                                 </tr>
 
                             </table>
 
                             <a class="btn btn-default checkout" href="/cart/checkout"><i class="fa fa-shopping-cart"></i> Оформити замовлення</a>
+
                         <? } else { ?>
                             <p>Кошик пустий</p>
 

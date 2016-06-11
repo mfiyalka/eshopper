@@ -68,5 +68,6 @@ public function run()
                 }
             }
         }
+//        echo $controllerName . " " . $actionName;
     }
 }

@@ -29,11 +29,34 @@ class CartController
         header("Locatuon: /cart/");
     }
 
+    // Збільшуємо кількість товару на 1
+    public function actionQuantityIncrement($id)
+    {
+        $productsInCart = $_SESSION['products'];
+        $productsInCart[$id]++;
+        $_SESSION['products'] = $productsInCart;
+
+        return self::actionIndex();
+    }
+
+    // Зменшуємо кількість товару на 1
+    public function actionQuantityDecrement($id)
+    {
+        $productsInCart = $_SESSION['products'];
+
+        if ($productsInCart[$id] == 1) {
+            // Видаляємо вказаний товар із кошику
+            return self::actionDelete($id);
+        }
+
+        $productsInCart[$id]--;
+        $_SESSION['products'] = $productsInCart;
+
+        self::actionIndex();
+    }
+
     public function actionIndex()
     {
-        $categories = array();
-        $categories = Category::getCategoryList();
-
         // Отримуємо дані із кошика
         $productsInCart = Cart::getProducts();
 
