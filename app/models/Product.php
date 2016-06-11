@@ -46,11 +46,35 @@ class Product
         }
     }
 
+    //
+    public static function getProductsListByBrand($brandId = false, $page = 1)
+    {
+        if ($brandId) {
+
+            $page = intval($page);
+            $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
+
+            $db = DataBase::getConnection();
+            $products = array();
+
+            $result = $db->query("SELECT id, name, price, image, is_new
+                                FROM product
+                                WHERE status = 1 AND brand_id = $brandId
+                                ORDER BY id DESC
+                                LIMIT " . self::SHOW_BY_DEFAULT
+                                . " OFFSET " . $offset);
+
+            $products = $result->fetchAll(PDO::FETCH_ASSOC);
+
+            return $products;
+        }
+    }
+
     public static function getProductById($productId)
     {
         $db = DataBase::getConnection();
 
-        $result = $db->query("SELECT * FROM product WHERE id = $productId");
+        $result = $db->query("SELECT t1.*, t2.name AS brand FROM product AS t1 JOIN brands AS t2 ON t1.brand_id = t2.id WHERE t1.id = $productId");
         $product = $result->fetchAll(PDO::FETCH_ASSOC);
 
         return $product[0];
@@ -65,6 +89,17 @@ class Product
 
         return $count['count'];
     }
+
+    public static function getTotalProductsInBrand($brandId)
+    {
+        $db = DataBase::getConnection();
+
+        $result = $db->query("SELECT count(id) AS count FROM product WHERE status = 1 AND brand_id = $brandId");
+        $count = $result->fetch(PDO::FETCH_ASSOC);
+
+        return $count['count'];
+    }
+
 
     public static function getProductsByIds($idsArray)
     {
@@ -144,10 +179,10 @@ class Product
 
         // Текст запроса к БД
         $sql = 'INSERT INTO product '
-            . '(name, code, price, category_id, brand, availability,'
+            . '(name, code, price, category_id, brand_id, availability,'
             . 'description, is_new, is_recommended, status)'
             . 'VALUES '
-            . '(:name, :code, :price, :category_id, :brand, :availability,'
+            . '(:name, :code, :price, :category_id, :brand_id, :availability,'
             . ':description, :is_new, :is_recommended, :status)';
 
         // Получение и возврат результатов. Используется подготовленный запрос
@@ -156,7 +191,7 @@ class Product
         $result->bindParam(':code', $options['code'], PDO::PARAM_STR);
         $result->bindParam(':price', $options['price'], PDO::PARAM_STR);
         $result->bindParam(':category_id', $options['category_id'], PDO::PARAM_INT);
-        $result->bindParam(':brand', $options['brand'], PDO::PARAM_STR);
+        $result->bindParam(':brand_id', $options['brand_id'], PDO::PARAM_STR);
         $result->bindParam(':availability', $options['availability'], PDO::PARAM_INT);
         $result->bindParam(':description', $options['description'], PDO::PARAM_STR);
         $result->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);
@@ -182,7 +217,7 @@ class Product
                 code = :code,
                 price = :price,
                 category_id = :category_id,
-                brand = :brand,
+                brand_id = :brand_id,
                 availability = :availability,
                 description = :description,
                 is_new = :is_new,
@@ -197,7 +232,7 @@ class Product
         $result->bindParam(':code', $options['code'], PDO::PARAM_STR);
         $result->bindParam(':price', $options['price'], PDO::PARAM_STR);
         $result->bindParam(':category_id', $options['category_id'], PDO::PARAM_INT);
-        $result->bindParam(':brand', $options['brand'], PDO::PARAM_STR);
+        $result->bindParam(':brand_id', $options['brand_id'], PDO::PARAM_STR);
         $result->bindParam(':availability', $options['availability'], PDO::PARAM_INT);
         $result->bindParam(':description', $options['description'], PDO::PARAM_STR);
         $result->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);

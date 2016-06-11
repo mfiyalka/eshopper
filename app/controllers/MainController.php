@@ -5,10 +5,10 @@ class MainController
 {
     public function actionIndex()
     {
-        $categories = array();
         $categories = Category::getCategoryList();
 
-        $latestProduct = array();
+        $brands = Category::getBrandsList();
+
         $latestProduct = Product::getLatestProduct(6);
 
         // Список товаров для слайдера

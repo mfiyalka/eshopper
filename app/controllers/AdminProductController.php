@@ -51,6 +51,9 @@ class AdminProductController extends AdminBase
         // Получаем список категорий для выпадающего списка
         $categoriesList = Category::getCategoriesListAdmin();
 
+        $brandsList = Category::getBrandsListAdmin();
+
+
         // Обработка формы
         if (isset($_POST['submit'])) {
             // Если форма отправлена
@@ -59,7 +62,7 @@ class AdminProductController extends AdminBase
             $options['code'] = $_POST['code'];
             $options['price'] = $_POST['price'];
             $options['category_id'] = $_POST['category_id'];
-            $options['brand'] = $_POST['brand'];
+            $options['brand_id'] = $_POST['brand_id'];
             $options['availability'] = $_POST['availability'];
             $options['description'] = $_POST['description'];
             $options['is_new'] = $_POST['is_new'];
@@ -109,6 +112,8 @@ class AdminProductController extends AdminBase
         // Получаем список категорий для выпадающего списка
         $categoriesList = Category::getCategoriesListAdmin();
 
+        $brandsList = Category::getBrandsListAdmin();
+
         // Получаем данные о конкретном заказе
         $product = Product::getProductById($id);
 
@@ -120,7 +125,7 @@ class AdminProductController extends AdminBase
             $options['code'] = $_POST['code'];
             $options['price'] = $_POST['price'];
             $options['category_id'] = $_POST['category_id'];
-            $options['brand'] = $_POST['brand'];
+            $options['brand_id'] = $_POST['brand_id'];
             $options['availability'] = $_POST['availability'];
             $options['description'] = $_POST['description'];
             $options['is_new'] = $_POST['is_new'];

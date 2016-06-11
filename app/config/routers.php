@@ -6,6 +6,8 @@ return array(
     // Каталог:
     'catalog'                           => 'catalog/index',             // actionIndex в CatalogController
     // Категорії товарів:
+    'category/brand/([0-9]+)/page-([0-9]+)'   => 'catalog/brand/$1/$2', // actionBrand в CatalogController
+    'category/brand/([0-9]+)'           => 'catalog/brand/$1',          // actionBrand в CatalogController
     'category/([0-9]+)/page-([0-9]+)'   => 'catalog/category/$1/$2',    // actionCategory в CatalogController
     'category/([0-9]+)'                 => 'catalog/category/$1',       // actionCategory в CatalogController
     // Кошик:

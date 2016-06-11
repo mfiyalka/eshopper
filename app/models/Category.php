@@ -24,6 +24,21 @@ class Category
     }
 
     /**
+     * Return an array of brands
+     * @return array
+     */
+    public static function getBrandsList()
+    {
+        $db = DataBase::getConnection();
+
+        $brandsList = array();
+        $result = $db->query('SELECT t1.id, t1.name, count(t2.brand_id) AS count FROM brands AS t1 JOIN product AS t2 ON t1.id = t2.brand_id GROUP BY t1.name');
+
+        return $result->fetchALL(PDO::FETCH_ASSOC);
+
+    }
+
+    /**
      * Возвращает массив категорий для списка в админпанели <br/>
      * (при этом в результат попадают и включенные и выключенные категории)
      * @return array <p>Массив категорий</p>
@@ -47,6 +62,26 @@ class Category
             $i++;
         }
         return $categoryList;
+    }
+
+
+    public static function getBrandsListAdmin()
+    {
+        // Соединение с БД
+        $db = DataBase::getConnection();
+
+        // Запрос к БД
+        $result = $db->query('SELECT id, name FROM brands ORDER BY name ASC');
+
+        // Получение и возврат результатов
+        $brandsList = array();
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $brandsList[$i]['id'] = $row['id'];
+            $brandsList[$i]['name'] = $row['name'];
+            $i++;
+        }
+        return $brandsList;
     }
 
     /**

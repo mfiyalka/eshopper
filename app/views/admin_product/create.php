@@ -44,7 +44,7 @@
                             <select name="category_id">
                                 <? if (is_array($categoriesList)) { ?>
                                     <? foreach ($categoriesList as $category) { ?>
-                                        <option value="<? $category['id'] ?>">
+                                        <option value="<?= $category['id'] ?>">
                                             <?= $category['name'] ?>
                                         </option>
                                     <? } ?>
@@ -54,7 +54,15 @@
                             <br/><br/>
 
                             <p>Виробник</p>
-                            <input type="text" name="brand" placeholder="" value="">
+                            <select name="brand_id">
+                                <? if (is_array($brandsList)) { ?>
+                                    <? foreach ($brandsList as $brand) { ?>
+                                        <option value="<?= $brand['id'] ?>">
+                                            <?= $brand['name'] ?>
+                                        </option>
+                                    <? } ?>
+                                <? } ?>
+                            </select>
 
                             <p>Зображення товару</p>
                             <input type="file" name="image" placeholder="" value="">

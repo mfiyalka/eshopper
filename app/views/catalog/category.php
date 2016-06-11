@@ -1,31 +1,39 @@
-<? require_once (ROOT . '/../app/views/layouts/header.php');
-
-?>
+<? require_once (ROOT . '/../app/views/layouts/header.php'); ?>
 
     <section>
         <div class="container">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3"><!-- catalog -->
                     <div class="left-sidebar">
                         <h2>Каталог</h2>
                         <div class="panel-group category-products">
 
-                            <? foreach ($categories as $categoryItem) {?>
+                            <? foreach ($categories as $categoryItem) { ?>
 
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
-                                        <h4 class="panel-title">
-                                            <a href="/category/<?=$categoryItem['id']?>" class="<? if($categoryId == $categoryItem['id']) echo 'active';?>"><?=$categoryItem['name']?></a>
+                                        <h4 class="panel-title"><a
+                                                href="/category/<?= $categoryItem['id'] ?>" class="<? if(@$categoryId == $categoryItem['id']) echo 'active';?>"><?= $categoryItem['name'] ?></a>
                                         </h4>
                                     </div>
                                 </div>
 
-                            <?}?>
-
+                            <? } ?>
                         </div>
 
+                        <div class="brands_products"><!--brands_products-->
+                            <h2>Виробники</h2>
+                            <div class="brands-name">
+                                <ul class="nav nav-pills nav-stacked">
+
+                                    <? foreach ($brands as $brandsItem) { ?>
+                                        <li><a href="/category/brand/<?= $brandsItem['id'] ?>"> <span class="pull-right">(<?= $brandsItem['count'] ?>)</span><?= $brandsItem['name'] ?></a></li>
+                                    <? } ?>
+                                </ul>
+                            </div>
+                        </div><!--/brands_products-->
                     </div>
-                </div>
+                </div><!-- catalog -->
 
                 <div class="col-sm-9 padding-right">
                     <div class="features_items"><!--features_items-->
