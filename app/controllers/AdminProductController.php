@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Контролер AdminProductController
+ */
 class AdminProductController extends AdminBase
 {
 
@@ -15,6 +18,7 @@ class AdminProductController extends AdminBase
         // Отримуємо перелік товарів
         $productsList = Product::getProductsList();
 
+        // Підключаємо view
         require_once(ROOT . '/../app/views/admin_product/index.php');
         return true;
     }
@@ -29,35 +33,38 @@ class AdminProductController extends AdminBase
         // Перевірка прав доступу
         self::checkAdmin();
 
-        // Обработка формы
+        // Опрацювання форми
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Удаляем товар
+
+            // Видаляємо товар
             Product::deleteProductById($id);
 
-            // Перенаправляем пользователя на страницу управлениями товарами
+            // Перенаправляємо адміністратора на сторінку керування товарами
             header("Location: /admin/product");
         }
 
+        // Підключаємо view
         require_once(ROOT . '/../app/views/admin_product/delete.php');
         return true;
     }
 
+    /**
+     * @return bool
+     */
     public function actionCreate()
     {
-        // Проверка доступа
+        // Перевірка прав доступу
         self::checkAdmin();
 
-        // Получаем список категорий для выпадающего списка
+        // Отримуємо перелік категорій для списку
         $categoriesList = Category::getCategoriesListAdmin();
 
+        // Отримуємо перелік брендів для списку
         $brandsList = Category::getBrandsListAdmin();
 
 
-        // Обработка формы
+        // Опрацювання форми
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Получаем данные из формы
             $options['name'] = $_POST['name'];
             $options['code'] = $_POST['code'];
             $options['price'] = $_POST['price'];
@@ -69,7 +76,7 @@ class AdminProductController extends AdminBase
             $options['is_recommended'] = $_POST['is_recommended'];
             $options['status'] = $_POST['status'];
 
-            // Флаг ошибок в форме
+            // Прапор помилок у формі
             $errors = false;
 
             // При необходимости можно валидировать значения нужным образом
@@ -78,49 +85,49 @@ class AdminProductController extends AdminBase
             }
 
             if ($errors == false) {
-                // Если ошибок нет
-                // Добавляем новый товар
+                // Якщо помилок немає
+                // Додаємо новий товар
                 $id = Product::createProduct($options);
 
-                // Если запись добавлена
+                // Якщо запис доданий
                 if ($id) {
-                    // Проверим, загружалось ли через форму изображение
+                    // Перевіримо, чи завантажувалося через форму зображення
                     if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
-                        // Если загружалось, переместим его в нужную папке, дадим новое имя
+
+                        // Якщо завантажувалося, то переміщаємо його в потрібну папку та перейменовуємо
                         move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/products/{$id}.jpg");
                     }
                 };
 
-                // Перенаправляем пользователя на страницу управлениями товарами
+                // Перенаправляємо адміністратора на сторінку керування товарами
                 header("Location: /admin/product");
             }
         }
 
-        // Подключаем вид
+        // Підключаємо view
         require_once(ROOT . '/../app/views/admin_product/create.php');
         return true;
     }
 
     /**
-     * Action для страницы "Редактировать товар"
+     * Action для сторінки "Редагування товару"
      */
     public function actionUpdate($id)
     {
-        // Проверка доступа
+        // Перевірка прав доступу
         self::checkAdmin();
 
-        // Получаем список категорий для выпадающего списка
+        // Отримуємо перелік категорій для списку
         $categoriesList = Category::getCategoriesListAdmin();
 
+        // Отримуємо перелік брендів для списку
         $brandsList = Category::getBrandsListAdmin();
 
-        // Получаем данные о конкретном заказе
+        // Отримуємо дані для конкретного замовлення
         $product = Product::getProductById($id);
 
-        // Обработка формы
+        // Опрацювання форми
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Получаем данные из формы редактирования. При необходимости можно валидировать значения
             $options['name'] = $_POST['name'];
             $options['code'] = $_POST['code'];
             $options['price'] = $_POST['price'];
@@ -132,24 +139,23 @@ class AdminProductController extends AdminBase
             $options['is_recommended'] = $_POST['is_recommended'];
             $options['status'] = $_POST['status'];
 
-            // Сохраняем изменения
+            // Зберігаємо зміни
             if (Product::updateProductById($id, $options)) {
 
-
-                // Если запись сохранена
-                // Проверим, загружалось ли через форму изображение
+                // Якщо запис доданий
+                // Перевіримо, чи завантажувалося через форму зображення
                 if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
 
-                    // Если загружалось, переместим его в нужную папке, дадим новое имя
+                    // Якщо завантажувалося, то переміщаємо його в потрібну папку та перейменовуємо
                     move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] . "/upload/images/products/{$id}.jpg");
                 }
             }
 
-            // Перенаправляем пользователя на страницу управлениями товарами
+            // Перенаправляємо адміністратора на сторінку керування товарами
             header("Location: /admin/product");
         }
 
-        // Подключаем вид
+        // Підключаємо view
         require_once(ROOT . '/../app/views/admin_product/update.php');
         return true;
     }

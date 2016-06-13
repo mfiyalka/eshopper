@@ -1,8 +1,13 @@
 <?php
 
+/**
+ * Контролер CartController
+ */
 class CartController
 {
-    // Синхронний метод для додавання товарів в кошик
+    /**
+     *  Синхронний метод для додавання товарів в кошик
+     */
     public function actionAdd($id)
     {
         // Додаємо товар в кошик
@@ -10,26 +15,35 @@ class CartController
 
         // Повертаємо користувача на сторінку
         $referer = $_SERVER['HTTP_REFERER'];
-        header ("Location: $referer");
+        header("Location: $referer");
     }
 
-    // Асинхронний метод для додавання товарів в кошик
+    /**
+     * Асинхронний метод для додавання товарів в кошик
+     */
     public function actionAddAjax($id)
     {
         // Додаємо товар в кошик
         echo Cart::addProduct($id);
+
         return true;
     }
 
+    /**
+     * Видалення товару з кошику
+     */
     public function actionDelete($id)
     {
         // Видаляємо вказаний товар із кошику
         Cart::deleteProduct($id);
-        // Поветраємо користувача в кошик
+
+        // Повертаємо користувача назад в кошик
         header("Locatuon: /cart/");
     }
 
-    // Збільшуємо кількість товару на 1
+    /**
+     * Збільшуємо кількість товару в кошику на 1
+     */
     public function actionQuantityIncrement($id)
     {
         $productsInCart = $_SESSION['products'];
@@ -39,13 +53,15 @@ class CartController
         return self::actionIndex();
     }
 
-    // Зменшуємо кількість товару на 1
+    /**
+     * Зменшуємо кількість товару в кошику на 1
+     */
     public function actionQuantityDecrement($id)
     {
         $productsInCart = $_SESSION['products'];
 
+        // Якщо в кошику кількість товару 1, то видаляємо товар з кошику
         if ($productsInCart[$id] == 1) {
-            // Видаляємо вказаний товар із кошику
             return self::actionDelete($id);
         }
 
@@ -55,6 +71,9 @@ class CartController
         self::actionIndex();
     }
 
+    /**
+     * Action для кошику
+     */
     public function actionIndex()
     {
         // Отримуємо дані із кошика
@@ -69,10 +88,14 @@ class CartController
             $totalPrice = Cart::getTotalPrice($products);
         }
 
-        require_once (ROOT . '/../app/views/cart/index.php');
+        // Підключаємо view
+        require_once(ROOT . '/../app/views/cart/index.php');
         return true;
     }
 
+    /**
+     * Action для сторінки оформлення замовлення
+     */
     public function actionCheckout()
     {
 
@@ -91,10 +114,12 @@ class CartController
 
             // Валідація полів
             $errors = false;
-            if(!User::checkName($userName))
+            if (!User::checkName($userName)) {
                 $errors[] = "Не правильне ім'я";
-            if(!User::checkPhoneNumber($userPhone))
+            }
+            if (!User::checkPhoneNumber($userPhone)) {
                 $errors[] = "Не правильний телефон";
+            }
 
             // Форма заповнена коректно?
             if ($errors == false) {
@@ -115,9 +140,9 @@ class CartController
                 if ($result) {
                     // Відправляємо адміністратору повідомлення про замовлення
                     $adminEmail = 'mfiyalka@gmail.com';
-                    $subject = "";
-                    $message = "";
-//                    mail($adminEmail, $subject, $message);
+                    $subject = "Отримано нове замовлення";
+                    $message = "Отримано нове замовлення";
+                    mail($adminEmail, $subject, $message);
 
                     // Очищаємо кошик
                     Cart::clear();
@@ -174,9 +199,8 @@ class CartController
             }
         }
 
-        require_once (ROOT . '/../app/views/cart/checkout.php');
+        // Підключаємо view
+        require_once(ROOT . '/../app/views/cart/checkout.php');
         return true;
     }
-
-
 }

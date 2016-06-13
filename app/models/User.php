@@ -1,7 +1,8 @@
 <?php
 
 /**
- * Class User - модель для роботи з користувачами
+ * Class User
+ * Модель для роботи з користувачами
  */
 
 class User
@@ -114,8 +115,9 @@ class User
         $result->bindParam(':email', $email, PDO::PARAM_STR);
         $result->execute();
 
-        if ($result->fetchColumn())
+        if ($result->fetchColumn()) {
             return true;
+        }
         return false;
     }
 
@@ -137,9 +139,9 @@ class User
 
         $user = $result->fetch();
         if ($user) {
-
-            if (password_verify($password, $user['password']))
+            if (password_verify($password, $user['password'])) {
                 return $user['id'];
+            }
         }
 
         return false;
@@ -151,7 +153,6 @@ class User
      */
     public static function auth($userId)
     {
-
         $_SESSION['user'] = $userId;
     }
 
@@ -162,7 +163,6 @@ class User
      */
     public static function checkLogged()
     {
-
         if (isset($_SESSION['user'])) {
             return $_SESSION['user'];
         }
@@ -177,7 +177,6 @@ class User
      */
     public static function isGuest()
     {
-
         if (isset($_SESSION['user'])) {
             return false;
         }
@@ -193,7 +192,6 @@ class User
     public static function getUserById($userId)
     {
         if ($userId) {
-
             $db = DataBase::getConnection();
 
             $sql = 'SELECT * FROM user WHERE id = :userId';
@@ -231,8 +229,8 @@ class User
     }
 
     /**
+     * Редгування паролю
      * @param $userId
-     * @param $password_old
      * @param $password_new
      * @return bool
      */

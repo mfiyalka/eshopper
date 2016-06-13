@@ -1,17 +1,21 @@
 <?php
 
+/**
+ * Контролер UserController
+ */
 class UserController
 {
+    /**
+     * Action для сторінки реєстрації
+     */
     public function actionRegister()
     {
-
         $name       = '';
         $email      = '';
         $password   = '';
         $result     = '';
 
         if (isset($_POST['submit'])) {
-
             $name       = trim($_POST['name']);
             $email      = trim($_POST['email']);
             $password   = trim($_POST['password']);
@@ -39,21 +43,22 @@ class UserController
             if ($errors == false) {
                 $result = User::register($name, $email, $password);
             }
-
         }
 
+        // Підключаємо view
         require_once ROOT . '/../app/views/user/register.php';
-
         return true;
     }
 
+    /**
+     * Action для сторінки авторизації
+     */
     public function actionLogin()
     {
         $email      = '';
         $password   = '';
 
         if (isset($_POST['submit'])) {
-
             $email      = trim($_POST['email']);
             $password   = trim($_POST['password']);
 
@@ -77,18 +82,21 @@ class UserController
                 User::auth($userId);
 
                 // Переадресовуємо користувача в кабінет
-                header ('Location: /cabinet/');
+                header('Location: /cabinet/');
             }
         }
 
+        // Підключаємо view
         require_once ROOT . '/../app/views/user/login.php';
         return true;
     }
 
-
+    /**
+     * Action для виходу
+     */
     public function actionLogout()
     {
         unset($_SESSION['user']);
-        header ("Location: /");
+        header("Location: /");
     }
 }

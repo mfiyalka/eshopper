@@ -1,79 +1,79 @@
 <?php
 
 /**
- * Контроллер AdminOrderController
- * Управление заказами в админпанели
+ * Контролер AdminOrderController
+ * Керування замовленнями в адмінпанелі
  */
 class AdminOrderController extends AdminBase
 {
 
     /**
-     * Action для страницы "Управление заказами"
+     * Action для сторінки "Керування замовленнями"
      */
     public function actionIndex()
     {
-        // Проверка доступа
+        // Перевіряємо права доступу
         self::checkAdmin();
 
-        // Получаем список заказов
+        // Отримуємо перелік замовлень
         $ordersList = Order::getOrdersList();
 
-        // Подключаем вид
+        // Підключаємо view
         require_once(ROOT . '/../app/views/admin_order/index.php');
         return true;
     }
 
     /**
-     * Action для страницы "Редактирование заказа"
+     * Action для сторінки "Редагуваня замовлення"
      */
     public function actionUpdate($id)
     {
-        // Проверка доступа
+        // Перевіряємо права доступу
         self::checkAdmin();
 
-        // Получаем данные о конкретном заказе
+        // Отримуємо дані про конкретне замовлення
         $order = Order::getOrderById($id);
 
-        // Обработка формы
+        // Опрацювання форми
         if (isset($_POST['submit'])) {
-            // Если форма отправлена   
-            // Получаем данные из формы
+            // Якщо форма надіслана
+            // Отримуємо дані із форми
             $userName = $_POST['userName'];
             $userPhone = $_POST['userPhone'];
             $userComment = $_POST['userComment'];
             $date = $_POST['date'];
             $status = $_POST['status'];
 
-            // Сохраняем изменения
+            // Зберігаємо зміни
             Order::updateOrderById($id, $userName, $userPhone, $userComment, $date, $status);
 
-            // Перенаправляем пользователя на страницу управлениями заказами
+            // Перенаправляємо адміністратора на сторінку керування замовленнями
             header("Location: /admin/order/view/$id");
         }
 
-        // Подключаем вид
+        // Підключаємо view
         require_once(ROOT . '/../app/views/admin_order/update.php');
         return true;
     }
 
     /**
-     * Action для страницы "Просмотр заказа"
+     * Action для сторінки "Перегляд замовлення"
      */
     public function actionView($id)
     {
-        // Проверка доступа
+        // Перевіряємо права доступу
         self::checkAdmin();
 
-        // Получаем данные о конкретном заказе
+        // Отримуємо дані про конкретне замовлення
         $order = Order::getOrderById($id);
 
-        // Получаем массив с идентификаторами и количеством товаров
+        // Отримуємо масив з ідентифікаторами і кількістю товарів
         $productsQuantity = json_decode($order['products'], true);
 
-        // Получаем массив с индентификаторами товаров
+        // Отримуємо масив з ідентифікаторами товарів
         $productsIds = array_keys($productsQuantity);
 
-        // Получаем список товаров в заказе
+        // Отримуємо список товарів в замовленні
         $products = Product::getProductsByIds($productsIds);
 
         // Рахуємо загальну вартість замовлення
@@ -82,30 +82,30 @@ class AdminOrderController extends AdminBase
             $totalPrice = $totalPrice + $item['price'];
         }
 
-        // Подключаем вид
+        // Підключаємо view
         require_once(ROOT . '/../app/views/admin_order/view.php');
         return true;
     }
 
     /**
-     * Action для страницы "Удалить заказ"
+     * Action для сторінки "Видалити замовлення"
      */
     public function actionDelete($id)
     {
-        // Проверка доступа
+        // Перевіряємо права доступу
         self::checkAdmin();
 
-        // Обработка формы
+        // Опрацювання форми
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Удаляем заказ
+            // Якщо форма надіслана
+            // Видаляємо замовлення
             Order::deleteOrderById($id);
 
-            // Перенаправляем пользователя на страницу управлениями товарами
+            // Перенаправляємо адміністратора на сторінку керування замовленнями
             header("Location: /admin/order");
         }
 
-        // Подключаем вид
+        // Підключаємо view
         require_once(ROOT . '/../app/views/admin_order/delete.php');
         return true;
     }

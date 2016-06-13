@@ -1,119 +1,114 @@
 <?php
 
 /**
- * Контроллер AdminCategoryController
- * Управление категориями товаров в админпанели
+ * Контролер AdminCategoryController
+ * Керування категоріями товарів в адмін панелі
  */
 class AdminCategoryController extends AdminBase
 {
 
     /**
-     * Action для страницы "Управление категориями"
+     * Action для сторінки "Керування категоріями"
      */
     public function actionIndex()
     {
-        // Проверка доступа
+        // Перевірка доступу
         self::checkAdmin();
 
-        // Получаем список категорий
+        // Отримуємо перелік категорій
         $categoriesList = Category::getCategoriesListAdmin();
 
-        // Подключаем вид
+        // Підключаємо view
         require_once(ROOT . '/../app/views/admin_category/index.php');
         return true;
     }
 
     /**
-     * Action для страницы "Добавить категорию"
+     * Action для сторінки "Додати категорію"
      */
     public function actionCreate()
     {
-        // Проверка доступа
+        // Перевірка доступу
         self::checkAdmin();
 
-        // Обработка формы
+        // Опрацювання форми
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Получаем данные из формы
+
             $name = $_POST['name'];
             $sortOrder = $_POST['sort_order'];
             $status = $_POST['status'];
 
-            // Флаг ошибок в форме
             $errors = false;
 
-            // При необходимости можно валидировать значения нужным образом
+            // Перевіряємо чи заповнені поля
             if (!isset($name) || empty($name)) {
-                $errors[] = 'Заполните поля';
+                $errors[] = 'Заповніть поля';
             }
 
-
             if ($errors == false) {
-                // Если ошибок нет
-                // Добавляем новую категорию
+                // Якщо помилок немає, то додаємо нову категорію
                 Category::createCategory($name, $sortOrder, $status);
 
-                // Перенаправляем пользователя на страницу управлениями категориями
+                // Перенаправляємо адміністратора на сторінку керування категоріями
                 header("Location: /admin/category");
             }
         }
 
+        // Підключаємо view
         require_once(ROOT . '/../app/views/admin_category/create.php');
         return true;
     }
 
     /**
-     * Action для страницы "Редактировать категорию"
+     * Action для сторінки "Редагувати категорію"
      */
     public function actionUpdate($id)
     {
-        // Проверка доступа
+        // Перевірка доступу
         self::checkAdmin();
 
-        // Получаем данные о конкретной категории
+        // Отримуємо дані про конкретну категорію
         $category = Category::getCategoryById($id);
 
-        // Обработка формы
+        // Опрацювання форми
         if (isset($_POST['submit'])) {
-            // Если форма отправлена   
-            // Получаем данные из формы
+
             $name = $_POST['name'];
             $sortOrder = $_POST['sort_order'];
             $status = $_POST['status'];
 
-            // Сохраняем изменения
+            // Зберігаємо зміни
             Category::updateCategoryById($id, $name, $sortOrder, $status);
 
-            // Перенаправляем пользователя на страницу управлениями категориями
+            // Перенаправляємо адміністратора на сторінку керування категоріями
             header("Location: /admin/category");
         }
 
-        // Подключаем вид
+        // Підключаємо view
         require_once(ROOT . '/../app/views/admin_category/update.php');
         return true;
     }
 
     /**
-     * Action для страницы "Удалить категорию"
+     * Action для сторінки "Видалити категорію"
      */
     public function actionDelete($id)
     {
-        // Проверка доступа
+        // Перевірка доступу
         self::checkAdmin();
 
-        // Обработка формы
+        // Опрацювння форми
         if (isset($_POST['submit'])) {
-            // Если форма отправлена
-            // Удаляем категорию
+
+            // Видаляємо категорію
             Category::deleteCategoryById($id);
 
-            // Перенаправляем пользователя на страницу управлениями товарами
+            // Перенаправляємо адміністратора на сторінку керування категоріями
             header("Location: /admin/category");
         }
 
-        // Подключаем вид
+        // Підключаємо view
         require_once(ROOT . '/../app/views/admin_category/delete.php');
         return true;
     }
-
 }

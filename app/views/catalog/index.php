@@ -32,6 +32,23 @@
                                 </ul>
                             </div>
                         </div><!--/brands_products-->
+
+                        <div class="price-range"><!--price-range-->
+                            <h2>Ціна</h2>
+                            <div class="well text-center">
+                                <form action="#" method="post">
+                                    <input type="text" class="span2" value="" data-slider-min="<?= $prices['min_price']?>" data-slider-max="<?= $prices['max_price']?>" data-slider-step="250" data-slider-value="[<?= $prices['min_price']?>,<?= $prices['max_price']?>]" id="sl2" ><br />
+                                    <b class="pull-left"><?= $prices['min_price']?></b> <b class="pull-right"><?= $prices['max_price']?></b>
+                                    <br>
+                                    <!--                                    <button type="submit" name="price" class="btn btn-default">Показати</button>-->
+                                </form>
+                            </div>
+                        </div><!--/price-range-->
+
+                        <div class="shipping text-center"><!--shipping-->
+                            <img src="/images/home/shipping.jpg" alt=""/>
+                        </div><!--/shipping-->
+
                     </div>
                 </div><!-- catalog -->
 

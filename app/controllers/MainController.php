@@ -1,34 +1,48 @@
 <?php
 
-
+/**
+ * Контролер MainController
+ * Головна сторінка та Зворотній зв'язок
+ */
 class MainController
 {
+    /**
+     * Action для сторінки "Головна"
+     */
     public function actionIndex()
     {
+        // Отримуємо перелік категорій
         $categories = Category::getCategoryList();
 
+        // Отримуємо перелік брендів
         $brands = Category::getBrandsList();
 
+        // Отримуємо перелік останній товарів
         $latestProduct = Product::getLatestProduct(6);
+
+        // Отримуємо мінімальну та максимальну суми товарів
+        $prices = Product::getMinMaxPrice();
 
         // Список товаров для слайдера
         $sliderProducts = Product::getRecommendedProducts();
 
-        require_once (ROOT . '/../app/views/site/index.php');
+        // Підключаємо view
+        require_once(ROOT . '/../app/views/site/index.php');
         return true;
     }
 
+    /**
+     * Action для сторінки "Контакти"
+     */
     public function actionContact()
     {
         $userName       = '';
         $userEmail      = '';
         $userSubject    = '';
         $userMessage    = '';
-        $result = false;
-
+        $result         = false;
 
         if (isset($_POST['submit'])) {
-
             $userName       = $_POST['name'];
             $userEmail      = $_POST['email'];
             $userSubject    = $_POST['subject'];
@@ -47,17 +61,16 @@ class MainController
             }
 
             if ($errors == false) {
-
                 $adminEmail = 'mfiyalka@gmail.com';
                 $message = "Текст: {$userMessage }. Від {$userEmail}, {$userName}";
                 $subject = $userSubject;
-//                $result = mail($adminEmail, $subject, $message);
+                $result = mail($adminEmail, $subject, $message);
                 $result = true;
             }
-
         }
 
-        require_once (ROOT . '/../app/views/site/contact.php');
+        // Підключаємо view
+        require_once(ROOT . '/../app/views/site/contact.php');
         return true;
     }
 }

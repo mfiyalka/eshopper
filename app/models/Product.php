@@ -1,16 +1,24 @@
 <?php
 
+/**
+ * Class Product
+ * Модель для роботи з продуктами
+ */
 class Product
 {
+    // Кількість товарів, які відображаються за замовчуванням
     const SHOW_BY_DEFAULT = 6;
 
+    /**
+     * Отримання переліку останніх товарів
+     * @param int $count
+     * @return array
+     */
     public static function getLatestProduct($count = self::SHOW_BY_DEFAULT)
     {
         $count = intval($count);
 
         $db = DataBase::getConnection();
-
-        $productList = array();
 
         $result = $db->query('SELECT id, name, price, image, is_new
                                 FROM product
@@ -23,15 +31,19 @@ class Product
         return $productList;
     }
 
+    /**
+     * Отримання переліку товарів вибраної категорії
+     * @param int $categoryId
+     * @param int $page
+     * @return array
+     */
     public static function getProductListByCategory($categoryId = false, $page = 1)
     {
         if ($categoryId) {
-
             $page = intval($page);
             $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
 
             $db = DataBase::getConnection();
-            $products = array();
 
             $result = $db->query("SELECT id, name, price, image, is_new
                                 FROM product
@@ -40,22 +52,25 @@ class Product
                                 LIMIT " . self::SHOW_BY_DEFAULT
                                 . " OFFSET " . $offset);
 
-            @$products = $result->fetchAll(PDO::FETCH_ASSOC);
+            $products = $result->fetchAll(PDO::FETCH_ASSOC);
 
             return $products;
         }
     }
 
-    //
+    /**
+     * Отримання переліку товарів вибраного бренду
+     * @param int $brandId
+     * @param int $page
+     * @return array
+     */
     public static function getProductsListByBrand($brandId = false, $page = 1)
     {
         if ($brandId) {
-
             $page = intval($page);
             $offset = ($page - 1) * self::SHOW_BY_DEFAULT;
 
             $db = DataBase::getConnection();
-            $products = array();
 
             $result = $db->query("SELECT id, name, price, image, is_new
                                 FROM product
@@ -70,6 +85,31 @@ class Product
         }
     }
 
+    // todo написати метод для повернення продуктів за діапазоном цін
+    public static function getProductsListByPrice($min, $max)
+    {
+        return true;
+    }
+
+    /**
+     * Отримання мінімальної та максимальної сум товарів
+     * @return array
+     */
+    public static function getMinMaxPrice()
+    {
+        $db = DataBase::getConnection();
+        $sql = "SELECT min(price) AS min_price, max(price) AS max_price FROM product";
+        $result = $db->query($sql);
+        $prices = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        return $prices[0];
+    }
+
+    /**
+     * Отримання переліку деталей товару
+     * @param $productId
+     * @return array
+     */
     public static function getProductById($productId)
     {
         $db = DataBase::getConnection();
@@ -80,6 +120,11 @@ class Product
         return $product[0];
     }
 
+    /**
+     * Отримання кількості товарів у вибраній категорії
+     * @param $categoryId
+     * @return int
+     */
     public static function getTotalProductsInCategory($categoryId)
     {
         $db = DataBase::getConnection();
@@ -90,6 +135,11 @@ class Product
         return $count['count'];
     }
 
+    /**
+     * Отримання кількості товарів для вибраного бренду
+     * @param $brandId
+     * @return int
+     */
     public static function getTotalProductsInBrand($brandId)
     {
         $db = DataBase::getConnection();
@@ -100,11 +150,13 @@ class Product
         return $count['count'];
     }
 
-
+    /**
+     * Отримання деталей товарів
+     * @param $idsArray Масив з id товарами
+     * @return array
+     */
     public static function getProductsByIds($idsArray)
     {
-        $products = array();
-
         $db = DataBase::getConnection();
 
         $idsString = implode(',', $idsArray);
@@ -141,11 +193,14 @@ class Product
         return $productsList;
     }
 
+    /**
+     * Отримання переліку всіх товарів для адмінки
+     * @return array
+     */
     public static function getProductsList()
     {
         $db = DataBase::getConnection();
 
-        // Получение и возврат результатов
         $result = $db->query('SELECT id, name, price, code FROM product ORDER BY id ASC');
         $productsList = array();
         $i = 0;
@@ -159,25 +214,32 @@ class Product
         return $productsList;
     }
 
+    /**
+     * Видалення товару
+     * @param $id
+     * @return bool
+     */
     public static function deleteProductById($id)
     {
         $db = DataBase::getConnection();
 
-        // Текст запроса к БД
         $sql = 'DELETE FROM product WHERE id = :id';
 
-        // Получение и возврат результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
+
         return $result->execute();
     }
 
+    /**
+     * Метод для додавання нового продукту
+     * @param $options
+     * @return int|string
+     */
     public static function createProduct($options)
     {
-        // Соединение с БД
         $db = DataBase::getConnection();
 
-        // Текст запроса к БД
         $sql = 'INSERT INTO product '
             . '(name, code, price, category_id, brand_id, availability,'
             . 'description, is_new, is_recommended, status)'
@@ -185,7 +247,6 @@ class Product
             . '(:name, :code, :price, :category_id, :brand_id, :availability,'
             . ':description, :is_new, :is_recommended, :status)';
 
-        // Получение и возврат результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
         $result->bindParam(':code', $options['code'], PDO::PARAM_STR);
@@ -198,19 +259,23 @@ class Product
         $result->bindParam(':is_recommended', $options['is_recommended'], PDO::PARAM_INT);
         $result->bindParam(':status', $options['status'], PDO::PARAM_INT);
         if ($result->execute()) {
-            // Если запрос выполенен успешно, возвращаем id добавленной записи
+            // Якщо запит виконаний успішно, то повертаємо id додатого запису
             return $db->lastInsertId();
         }
-        // Иначе возвращаем 0
+        // Інакше повертаємо 0
         return 0;
     }
 
+    /**
+     * Метод для редагування продукту
+     * @param $id
+     * @param $options
+     * @return bool
+     */
     public static function updateProductById($id, $options)
     {
-        // Соединение с БД
         $db = DataBase::getConnection();
 
-        // Текст запроса к БД
         $sql = "UPDATE product
             SET
                 name = :name,
@@ -225,7 +290,6 @@ class Product
                 status = :status
             WHERE id = :id";
 
-        // Получение и возврат результатов. Используется подготовленный запрос
         $result = $db->prepare($sql);
         $result->bindParam(':id', $id, PDO::PARAM_INT);
         $result->bindParam(':name', $options['name'], PDO::PARAM_STR);
@@ -243,46 +307,39 @@ class Product
     }
 
     /**
-     * Возвращает текстое пояснение наличия товара:<br/>
-     * <i>0 - Под заказ, 1 - В наличии</i>
-     * @param integer $availability <p>Статус</p>
-     * @return string <p>Текстовое пояснение</p>
+     * Метод, який повертає статуси наявності товарів (для адмінки)
+     * @param integer $availability
+     * @return string Текстове пояснення
      */
     public static function getAvailabilityText($availability)
     {
         switch ($availability) {
             case '1':
-                return 'В наличии';
+                return 'В наявності';
                 break;
             case '0':
-                return 'Под заказ';
+                return 'Під замовлення';
                 break;
         }
     }
 
     /**
-     * Возвращает путь к изображению
+     * Отримання шляху до зображення
      * @param integer $id
-     * @return string <p>Путь к изображению</p>
+     * @return string Шлях до зображення
      */
     public static function getImage($id)
     {
-        // Название изображения-пустышки
         $noImage = 'no-image.jpg';
 
-        // Путь к папке с товарами
         $path = '/upload/images/products/';
 
-        // Путь к изображению товара
         $pathToProductImage = $path . $id . '.jpg';
 
         if (file_exists($_SERVER['DOCUMENT_ROOT'].$pathToProductImage)) {
-            // Если изображение для товара существует
-            // Возвращаем путь изображения товара
             return $pathToProductImage;
         }
 
-        // Возвращаем путь изображения-пустышки
         return $path . $noImage;
     }
 }

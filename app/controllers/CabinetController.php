@@ -1,7 +1,13 @@
 <?php
 
+/**
+ * Контролер CabinetController
+ */
 class CabinetController
 {
+    /**
+     * Action для сторінки Особистого кабінету
+     */
     public function actionIndex()
     {
         // Отримуємо ідентифікатор користувача із сесії
@@ -10,11 +16,14 @@ class CabinetController
         // Отримуємо інформацію про користувача із бази даних
         $user = User::getUserById($userId);
 
+        // Підключаємо view
         require_once (ROOT . '/../app/views/cabinet/index.php');
-
         return true;
     }
 
+    /**
+     * Action для сторінки редагування особистих даних
+     */
     public function actionEdit()
     {
         // Отримуємо ідентифікатор користувача із сесії
@@ -23,7 +32,7 @@ class CabinetController
         // Отримуємо інформацію про користувача із бази даних
         $user = User::getUserById($userId);
 
-        $name = $user['name'];
+        $name  = $user['name'];
         $phone = $user['phone'];
 
         $result = false;
@@ -46,14 +55,16 @@ class CabinetController
             if ($errors == false) {
                 $result = User::editUser($userId, $name, $phone);
             }
-
         }
 
+        // Підключаємо view
         require_once (ROOT . '/../app/views/cabinet/edit.php');
         return true;
     }
 
-
+    /**
+     * Action для сторінки зміни паролю
+     */
     public function actionEditPassword()
     {
         // Отримуємо ідентифікатор користувача із сесії
@@ -63,7 +74,6 @@ class CabinetController
         $user = User::getUserById($userId);
 
         $result = false;
-
 
         if (isset($_POST['submit'])) {
 
@@ -85,31 +95,39 @@ class CabinetController
             }
         }
 
+        // Підключаємо view
         require_once (ROOT . '/../app/views/cabinet/editpassword.php');
         return true;
     }
 
+    /**
+     * Action для сторінки перегляду історій замовлень
+     */
     public function actionHistory()
     {
-        // Получаем список заказов
+        // Отримуємо перелік замовлень
         $ordersList = Order::getOrdersList();
 
+        // Підключаємо view
         require_once (ROOT . '/../app/views/cabinet/history.php');
         return true;
     }
 
+    /**
+     * Action для сторінки з переглядом деталей замовлення
+     */
     public function actionView($id)
     {
-        // Получаем данные о конкретном заказе
+        // Отримуємо дані про замовлення
         $order = Order::getOrderById($id);
 
-        // Получаем массив с идентификаторами и количеством товаров
+        // Отримуємо масив з ідентифікаторами і кількістю товарів
         $productsQuantity = json_decode($order['products'], true);
 
-        // Получаем массив с индентификаторами товаров
+        // Отримуємо масив з ідентифікаторами товарів
         $productsIds = array_keys($productsQuantity);
 
-        // Получаем список товаров в заказе
+        // Отримуємо список товарів в замовленні
         $products = Product::getProductsByIds($productsIds);
 
         // Рахуємо загальну вартість замовлення
@@ -118,7 +136,7 @@ class CabinetController
             $totalPrice = $totalPrice + $item['price'];
         }
 
-        // Подключаем вид
+        // Підключаємо view
         require_once(ROOT . '/../app/views/cabinet/view.php');
         return true;
     }

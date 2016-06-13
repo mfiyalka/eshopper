@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * Class Router
+ */
 class Router
 {
     private $routes;
@@ -9,7 +11,7 @@ class Router
     {
         // Підключаємо файл із роутерами
         $routersPath = ROOT . '/../app/config/routers.php';
-        $this->routes = include ($routersPath);
+        $this->routes = include($routersPath);
     }
 
     /**
@@ -24,7 +26,10 @@ class Router
         }
     }
 
-public function run()
+    /**
+     * Метод для обробки запиту
+     */
+    public function run()
     {
         /*
          * Отримуємо рядок запиту
@@ -56,7 +61,7 @@ public function run()
                 $controllerFile = ROOT . '/../app/controllers/' . $controllerName . '.php';
 
                 if (file_exists($controllerFile)) {
-                    include_once ($controllerFile);
+                    include_once($controllerFile);
                 }
 
                 if (method_exists($controllerName, $actionName)) {
@@ -68,6 +73,5 @@ public function run()
                 }
             }
         }
-//        echo $controllerName . " " . $actionName;
     }
 }
