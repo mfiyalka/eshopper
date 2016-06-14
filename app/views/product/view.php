@@ -46,7 +46,7 @@
                     </div><!--/price-range-->
 
                     <div class="shipping text-center"><!--shipping-->
-                        <img src="/images/home/shipping.jpg" alt=""/>
+                        <img src="/public/images/home/shipping.jpg" alt=""/>
                     </div><!--/shipping-->
 
                 </div>
@@ -64,7 +64,7 @@
                             <div class="product-information"><!--/product-information-->
 
                                 <? if ($product['is_new']) {?>
-                                    <img src="/images/product-details/new.jpg" class="newarrival" alt="">
+                                    <img src="/public/images/product-details/new.jpg" class="newarrival" alt="">
                                 <?}?>
 
                                 <h2><?=$product['name']?></h2>

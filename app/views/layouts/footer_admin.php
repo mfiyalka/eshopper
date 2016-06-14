@@ -13,12 +13,12 @@
 
 
 
-    <script src="/js/jquery.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/jquery.scrollUp.min.js"></script>
-    <script src="/js/price-range.js"></script>
-    <script src="/js/jquery.prettyPhoto.js"></script>
-    <script src="/js/main.js"></script>
+    <script src="/public/js/jquery.js"></script>
+    <script src="/public/js/bootstrap.min.js"></script>
+    <script src="/public/js/jquery.scrollUp.min.js"></script>
+    <script src="/public/js/price-range.js"></script>
+    <script src="/public/js/jquery.prettyPhoto.js"></script>
+    <script src="/public/js/main.js"></script>
 <script>
     $(document).ready(function(){
         $(".add-to-cart").click(function () {
