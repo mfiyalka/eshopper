@@ -46,7 +46,7 @@
                         </div><!--/price-range-->
 
                         <div class="shipping text-center"><!--shipping-->
-                            <img src="/images/home/shipping.jpg" alt=""/>
+                            <img src="/public/images/home/shipping.jpg" alt=""/>
                         </div><!--/shipping-->
 
                     </div>
@@ -69,7 +69,7 @@
                                                 кошик</a>
                                         </div>
                                         <? if ($product['is_new']) { ?>
-                                            <img src="images/home/new.png" class="new" alt="">
+                                            <img src="/public/images/home/new.png" class="new" alt="">
                                         <? } ?>
                                     </div>
                                 </div>
